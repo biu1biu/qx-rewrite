@@ -13,6 +13,7 @@ Add the URL in Quantumult X under **订阅资源** as a rewrite snippet. The fil
 ## Layout
 
 - `rewrite.snippet`: active subscription file.
+- `scripts/91porn-cleanup.js`: removes confirmed ad containers from 91porn HTML responses; video elements and sources are left unchanged.
 - `upstream/rewrite.snippet`: untouched copy of the imported upstream baseline.
 - `CHANGELOG.md`: local changes and verification notes.
 
