@@ -10,3 +10,4 @@
 - Deliberately left `la.btc620.com/.../mp43/*.mp4` untouched so video requests continue to receive HTTP 206 ranges.
 - Added an HTML response cleanup script for 91porn ad containers that were leaving oversized blank boxes after URL blocking.
 - Restored `rewrite.snippet` to the untouched upstream baseline and moved all 91porn rules into standalone `91porn.snippet`.
+- Added `91porn-routing.list` for the site and video CDN domains seen in the HAR; its policy name is intentionally editable.

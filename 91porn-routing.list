@@ -1,0 +1,5 @@
+# 91porn playback routing. Change `proxy` to your preferred Quantumult X policy/group.
+host-suffix,91porn.com,proxy
+host-suffix,btc620.com,proxy
+host-suffix,rsc.cdn77.org,proxy
+host-suffix,91p52.com,proxy

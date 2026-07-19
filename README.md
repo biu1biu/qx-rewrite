@@ -14,6 +14,7 @@ Add the URL in Quantumult X under **订阅资源** as a rewrite snippet. The fil
 
 - `rewrite.snippet`: active subscription file.
 - `91porn.snippet`: standalone 91porn rules; subscribe this separately in Quantumult X.
+- `91porn-routing.list`: standalone playback-domain routing list; change the final `proxy` field to your policy/group name.
 - `scripts/91porn-cleanup.js`: removes confirmed ad containers from 91porn HTML responses; video elements and sources are left unchanged.
 - `upstream/rewrite.snippet`: untouched copy of the imported upstream baseline.
 - `CHANGELOG.md`: local changes and verification notes.
@@ -31,4 +32,10 @@ The standalone 91porn subscription URL is:
 
 ```text
 https://raw.githubusercontent.com/biu1biu/qx-rewrite/main/91porn.snippet
+```
+
+The playback routing list is:
+
+```text
+https://raw.githubusercontent.com/biu1biu/qx-rewrite/main/91porn-routing.list
 ```
