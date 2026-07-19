@@ -9,3 +9,4 @@
 - Analyzed `quantumult-x-2026-07-19-140509.har` and added narrow 91porn ad/SmartPop rules.
 - Deliberately left `la.btc620.com/.../mp43/*.mp4` untouched so video requests continue to receive HTTP 206 ranges.
 - Added an HTML response cleanup script for 91porn ad containers that were leaving oversized blank boxes after URL blocking.
+- Restored `rewrite.snippet` to the untouched upstream baseline and moved all 91porn rules into standalone `91porn.snippet`.

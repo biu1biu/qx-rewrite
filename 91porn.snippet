@@ -1,0 +1,23 @@
+#!name=91porn 广告清理（不影响视频）
+#!desc=独立的 91porn 广告请求和空白广告容器清理；视频 CDN 与 video 元素不处理
+#!author=biu1biu
+#!homepage=https://github.com/biu1biu/qx-rewrite
+#!raw-url=https://raw.githubusercontent.com/biu1biu/qx-rewrite/main/91porn.snippet
+#!category=自用重写
+#!tag=去广告,91porn
+#!system=iOS,iPadOS
+
+# HTML cleanup removes ad containers that would otherwise leave oversized blank boxes.
+^https?:\/\/91porn\.com\/(?:v|view_video)\.php(?:\?.*)?$ url script-response-body https://raw.githubusercontent.com/biu1biu/qx-rewrite/main/scripts/91porn-cleanup.js
+
+# Confirmed ad resources from the supplied HAR. Do not block la.btc620.com video requests.
+^https?:\/\/poweredby\.jads\.co\/adshow\.php(?:\?.*)?$ url reject
+^https?:\/\/go\.rmhfrtnd\.com\/smartpop\/.* url reject
+^https?:\/\/i\.jads\.co\/(?:ads|network)\/.* url reject
+^https?:\/\/creative\.9splt\.com\/(?:widgets|static)\/.* url reject
+^https?:\/\/go\.9splt\.com\/(?:config|api|app|abc\.gif)(?:[\/?].*)?$ url reject
+^https?:\/\/t\.nettrck\.store\/s1\/.* url reject
+^https?:\/\/static\.javhdhello\.com\/h5\/files\/\d+\/300x250\.html(?:\?.*)?$ url reject
+^https?:\/\/fans\.91selfie\.com\/fans\/.*\.(?:gif|png|jpg)(?:\?.*)?$ url reject
+
+hostname = 91porn.com, poweredby.jads.co, go.rmhfrtnd.com, i.jads.co, creative.9splt.com, go.9splt.com, t.nettrck.store, static.javhdhello.com, fans.91selfie.com

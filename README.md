@@ -13,6 +13,7 @@ Add the URL in Quantumult X under **订阅资源** as a rewrite snippet. The fil
 ## Layout
 
 - `rewrite.snippet`: active subscription file.
+- `91porn.snippet`: standalone 91porn rules; subscribe this separately in Quantumult X.
 - `scripts/91porn-cleanup.js`: removes confirmed ad containers from 91porn HTML responses; video elements and sources are left unchanged.
 - `upstream/rewrite.snippet`: untouched copy of the imported upstream baseline.
 - `CHANGELOG.md`: local changes and verification notes.
@@ -25,3 +26,9 @@ Add the URL in Quantumult X under **订阅资源** as a rewrite snippet. The fil
 4. Keep credentials, cookies, device identifiers, and raw private captures out of Git.
 
 The upstream source is recorded in `CHANGELOG.md`. Upstream updates must be reviewed before replacing local rules, because they can change MITM hostnames and response scripts.
+
+The standalone 91porn subscription URL is:
+
+```text
+https://raw.githubusercontent.com/biu1biu/qx-rewrite/main/91porn.snippet
+```
