@@ -1,0 +1,19 @@
+#!name=18comic.vip 广告清理
+#!desc=独立的 18comic.vip 广告资源拦截与广告容器清理；不拦截漫画图片 CDN 或视频资源
+#!author=biu1biu
+#!homepage=https://github.com/biu1biu/qx-rewrite
+#!raw-url=https://raw.githubusercontent.com/biu1biu/qx-rewrite/main/18comic.snippet
+#!category=自用重写
+#!tag=去广告,18comic
+#!system=iOS,iPadOS
+
+# Remove the site's marked ad slots and AJAX-injected ad fragments.
+^https?:\/\/18comic\.vip\/(?:$|albums(?:[/?].*)?$|album\/\d+(?:[/?].*)?$|photo\/\d+(?:[/?].*)?$|theme(?:[/?].*)?$|ajax\/album_pagination(?:[/?].*)?$) url script-response-body https://raw.githubusercontent.com/biu1biu/qx-rewrite/main/scripts/18comic-cleanup.js
+
+# Confirmed third-party ad/measurement resources from the supplied HAR.
+^https?:\/\/campfirecroutondecorator\.com\/(?:bn\.js|check\.html|get\/|chicken\.gif) url reject
+^https?:\/\/(?:a|s)\.chnsrv\.com\/(?:ad-provider\.js|cimp\.php|v1\/api\.php) url reject
+^https?:\/\/(?:a|s)\.magsrv\.com\/(?:ad-provider\.js|cimp\.php|v1\/api\.php) url reject
+^https?:\/\/ads\.exoclick\.com\/ads\.js(?:\?.*)?$ url reject
+
+hostname = 18comic.vip, campfirecroutondecorator.com, a.chnsrv.com, s.chnsrv.com, a.magsrv.com, s.magsrv.com, ads.exoclick.com
