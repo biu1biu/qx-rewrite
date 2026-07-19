@@ -14,3 +14,4 @@
 - Analyzed `quantumult-x-2026-07-19-152527.har` and added standalone `18comic.snippet` rules for the confirmed third-party ad endpoints.
 - Added `scripts/18comic-cleanup.js` to remove the site's `.c835e-33_e` ad slots and AJAX `ad1/ad2` fragments, including empty-wrapper cleanup so blocked ads do not leave large blank boxes.
 - Verified all 17 captured 18comic HTML/JSON responses offline: ad markers were removed while comic image markers and video markup stayed unchanged. No rule matches `cdn-msp2/3.18comic.vip` or the captured MP4 hosts.
+- Replayed `quantumult-x-2026-07-19-160701.har` and extended the standalone 91porn cleanup to `uvideos.php` pages and all confirmed `ad_img` banner anchors; blocked JuicyAds loader script as well. Video markup and sources remain untouched.

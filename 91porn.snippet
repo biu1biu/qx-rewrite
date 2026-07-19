@@ -8,9 +8,10 @@
 #!system=iOS,iPadOS
 
 # HTML cleanup removes ad containers that would otherwise leave oversized blank boxes.
-^https?:\/\/91porn\.com\/(?:v|view_video)\.php(?:\?.*)?$ url script-response-body https://raw.githubusercontent.com/biu1biu/qx-rewrite/main/scripts/91porn-cleanup.js
+^https?:\/\/91porn\.com\/(?:v|view_video|uvideos)\.php(?:\?.*)?$ url script-response-body https://raw.githubusercontent.com/biu1biu/qx-rewrite/main/scripts/91porn-cleanup.js
 
 # Confirmed ad resources from the supplied HAR. Do not block la.btc620.com video requests.
+^https?:\/\/poweredby\.jads\.co\/js\/jads\.js(?:\?.*)?$ url reject
 ^https?:\/\/poweredby\.jads\.co\/adshow\.php(?:\?.*)?$ url reject
 ^https?:\/\/go\.rmhfrtnd\.com\/smartpop\/.* url reject
 ^https?:\/\/i\.jads\.co\/(?:ads|network)\/.* url reject
