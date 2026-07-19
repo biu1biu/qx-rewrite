@@ -1,0 +1,26 @@
+# Quantumult X Rewrite
+
+Personal Quantumult X rewrite rules based on the public `fmz200/wool_scripts` baseline.
+
+## Subscription
+
+```text
+https://raw.githubusercontent.com/biu1biu/qx-rewrite/main/rewrite.snippet
+```
+
+Add the URL in Quantumult X under **订阅资源** as a rewrite snippet. The file is intentionally public so the raw URL can be fetched without a GitHub login.
+
+## Layout
+
+- `rewrite.snippet`: active subscription file.
+- `upstream/rewrite.snippet`: untouched copy of the imported upstream baseline.
+- `CHANGELOG.md`: local changes and verification notes.
+
+## Workflow
+
+1. Capture the ad request or response and provide the app name, URL, and relevant response shape.
+2. Add the smallest rule that removes the ad without breaking the surrounding response.
+3. Test the rule with the affected app and commit the change.
+4. Keep credentials, cookies, device identifiers, and raw private captures out of Git.
+
+The upstream source is recorded in `CHANGELOG.md`. Upstream updates must be reviewed before replacing local rules, because they can change MITM hostnames and response scripts.

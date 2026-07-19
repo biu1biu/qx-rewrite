@@ -1,0 +1,12 @@
+# Packet captures and local debugging output
+*.har
+*.pcap
+*.pcapng
+captures/
+tmp/
+
+# Local credentials and generated files
+.env
+.env.*
+*.local
+.DS_Store
