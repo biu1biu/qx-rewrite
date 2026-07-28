@@ -1,0 +1,41 @@
+# 智慧树(ZHS)广告域名拦截列表
+# 订阅到 Quantumult X 规则部分（不是重写部分）
+# 这些规则不需要 MITM，在连接层面直接拒绝
+#
+# 订阅URL:
+# https://raw.githubusercontent.com/biu1biu/qx-rewrite/main/zhs-ad-domains.list
+#
+# 在QX中：打开"配置文件"→"规则"→"引用"→添加此URL
+
+# Gromore 广告中介（穿山甲）
+DOMAIN-SUFFIX,gromore.pangolin-sdk-toutiao.com,REJECT
+
+# 开屏广告图片CDN
+DOMAIN-SUFFIX,p3-sign.douyinpic.com,REJECT
+
+# OceanEngine 广告监测
+DOMAIN-SUFFIX,pig.pupuapi.com,REJECT
+
+# 穿山甲日志上报
+DOMAIN-SUFFIX,log-api.pangolin-sdk-toutiao.com,REJECT
+DOMAIN-SUFFIX,log-api.pangolin-sdk-toutiao-b.com,REJECT
+
+# 智慧树自有广告平台
+DOMAIN,e.hyzhihuixing.com,REJECT
+
+# AD日志统计
+DOMAIN,e.hybbtree.com,REJECT
+
+# AD通知/状态更新
+DOMAIN,adv.api.hyzhihuixing.com,REJECT
+
+# 百度广告联盟
+DOMAIN-SUFFIX,mobads.baidu.com,REJECT
+DOMAIN-SUFFIX,mobads-logs.baidu.com,REJECT
+
+# 友盟统计/广告
+DOMAIN-SUFFIX,ulogs.umeng.com,REJECT
+DOMAIN-SUFFIX,utoken.umeng.com,REJECT
+
+# UyunAd
+DOMAIN-SUFFIX,aaid.uyunad.com,REJECT

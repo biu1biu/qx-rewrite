@@ -19,6 +19,7 @@ Add the URL in Quantumult X under **订阅资源** as a rewrite snippet. The fil
 - `18comic.snippet`: standalone 18comic.vip rules; subscribe this separately in Quantumult X.
 - `scripts/18comic-cleanup.js`: removes marked 18comic ad slots and AJAX ad fragments; comic image and video URLs are left unchanged.
 - `upstream/rewrite.snippet`: untouched copy of the imported upstream baseline.
+- `zhs-ad-domains.list`: 智慧树 (ZHS) ad domain reject list — works without MITM. Subscribe separately in QX rule section.
 - `CHANGELOG.md`: local changes and verification notes.
 
 ## Workflow
@@ -47,3 +48,11 @@ The standalone 18comic subscription URL is:
 ```text
 https://raw.githubusercontent.com/biu1biu/qx-rewrite/main/18comic.snippet
 ```
+
+The 智慧树 ad domain reject list (no MITM needed):
+
+```text
+https://raw.githubusercontent.com/biu1biu/qx-rewrite/main/zhs-ad-domains.list
+```
+
+Subscribe this in **Quantumult X → 配置文件 → 规则 → 引用**（不是重写部分）
