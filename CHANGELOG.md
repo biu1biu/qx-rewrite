@@ -1,5 +1,15 @@
 # Changelog
 
+## 2026-08-02 (fix: video playback restored)
+
+- **Hotfix**: `surrit.com` was wrongly classified as an ad. Its `/{uuid}/720p/video.m3u8` requests (referer = missav video detail page) are a real HLS video CDN, so the `url reject` rule and its MITM hostname broke playback for videos served from it. Removed surrit.com from `rewrite.snippet` entirely (rule + both hostname lines).
+- Made `scripts/missav-cleanup.js` safer for pages never captured in the HAR (the video watch page was not in the capture):
+  - Dropped the "empty fixed-size box" cleanup (cosmetic, could in theory touch an empty player container).
+  - TSyndicate spot rule now requires the SDK `<script>` to sit directly inside the spot div — no cross-container scanning.
+  - `html-ads` def script must provably be the ad injector (contain `htmlAds`/`SCSpotScript`/`StripchatSpot`/`creative.myavlive.com`); added the `htmlAds[htmlAdIndexes[0]]` executor script removal, anchored to script start so it cannot swallow intervening scripts (the GTM 129KB lesson again).
+  - Removed static `zh.myavlive.com/girls/...` cam links from the nav menu.
+- Re-verified on the captured homepage: div tags 458/458 -> 447/447 balanced, 8.8 KB of pure ad nodes removed, 60 `<video>` tags untouched, all ad markers gone; non-missav / non-HTML responses still pass through unchanged.
+
 ## 2026-08-02
 
 - Analyzed `quantumult-x-2026-08-02-124043.har` (251 requests) and added a `✅ missav ✅` section to `rewrite.snippet` for missav.ws.
