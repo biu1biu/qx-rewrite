@@ -1,5 +1,14 @@
 # Changelog
 
+## 2026-08-02
+
+- Analyzed `quantumult-x-2026-08-02-124043.har` (251 requests) and added a `✅ missav ✅` section to `rewrite.snippet` for missav.ws.
+- Confirmed ad injection points: 6 static smartpop iframes (`go.mayzaent.com/smartpop/{campaignId}`, 300x100 / 728x90), a TSyndicate native 300x250 spot (page embeds `//cdn.tsyndicate.com/sdk/v1/ms.js`), and the `html-ads` dynamic injector (`creative.myavlive.com/widgets/Spot/lib.js` -> StripchatSpot). Also blocked StripChat popunders, `surrit.com` ad-preview video, click/impression pixels (`t.rallytrck.website`, `t.snaptrckr.fun`, `s.optvz.com`), and GTM analytics.
+- Added `scripts/missav-cleanup.js` to strip the ad containers from missav HTML responses, including fixed-size wrapper divs so blocked ads do not leave blank boxes.
+- Deliberately left video HLS CDNs (`growcdnssedge.com`, `doppiocdn.com/.net`), cover images (`z6v2p9a8.bkcdn.net`, `fourhoi.com`, `img.doppiocdn.com`), and the recombee recommendation API untouched.
+- Verified offline: div tag pairing stays balanced (458/458 -> 449/449), 7.1 KB of pure ad nodes removed, app bundle and navigation markup preserved; non-HTML / non-missav responses pass through unchanged.
+- Mistake avoided: a GTM regex (`<script[^>]*>.*?googletagmanager.*?</script>`) would have swallowed a 129 KB inline SSR payload, so GTM is handled by a plain `url reject` instead of response-body rewriting.
+
 ## 2026-07-19
 
 - Created the public repository `biu1biu/qx-rewrite`.
