@@ -19,7 +19,7 @@ Add the URL in Quantumult X under **订阅资源** as a rewrite snippet. The fil
 - `scripts/91porn-cleanup.js`: removes confirmed ad containers from 91porn HTML responses; video elements and sources are left unchanged.
 - `18comic.snippet`: standalone 18comic.vip rules; subscribe this separately in Quantumult X.
 - `scripts/18comic-cleanup.js`: removes marked 18comic ad slots and AJAX ad fragments; comic image and video URLs are left unchanged.
-- `scripts/missav-cleanup.js`: removes confirmed missav.ws ad containers (smartpop iframes, TSyndicate native ads, the `html-ads` dynamic injector) from HTML responses; video HLS CDNs, cover images, and the recombee API are left unchanged. Rules live inside `rewrite.snippet` under the `✅ missav ✅` section.
+- `scripts/missav-cleanup.js`: removes confirmed missav.ws ad containers from HTML responses — smartpop iframes, the `myavlive` popup video ad (`widgets/Player`), tracking-pixel iframes, the Alpine-injected under_player widget, TSyndicate native ads, and the `html-ads` dynamic injector; video HLS CDNs, cover images, and the recombee API are left unchanged. Rules live inside `rewrite.snippet` under the `✅ missav ✅` section.
 - `upstream/rewrite.snippet`: untouched copy of the imported upstream baseline.
 - `zhs-ad-domains.list`: 智慧树 (ZHS) ad domain reject list — works without MITM. Subscribe separately in QX rule section.
 - `CHANGELOG.md`: local changes and verification notes.

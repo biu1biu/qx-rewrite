@@ -1,5 +1,15 @@
 # Changelog
 
+## 2026-08-03 (block the popup video ad without touching the real video)
+
+- User: "第一次点击视频还有一个弹窗式的视频广告的那个要拦截,但是别误拦截真正的视频". Reproduced on a real video page (HMN-246) in the browser and confirmed the "popup video ad" is `creative.myavlive.com/widgets/Player?autoplay=all&campaignId=side_player` — an auto-playing video iframe, plus the `snaptrckr`/`rallytrck` tracking-pixel iframes, the `go.mayzaent.com/smartpop` popup, and the Alpine-injected `widgets/v4/Universal` under_player widget. All these domains were **already network-rejected** (`url reject` + MITM hostname), but the cleanup script only removed the `mayzaent` iframe ELEMENT — so a rejected ad iframe still occupied its 300x250/300x100 box. The fix is purely in `scripts/missav-cleanup.js`:
+  - Generalized the iframe rule from `go.mayzaent.com` to any ad-domain src (`mayzaent`/`myavlive`/`snaptrckr`/`rallytrck`/`optvz`/`tsyndicate`), removing the iframe together with its fixed-size `mx-auto` wrapper div.
+  - Removed the under_player widget: an Alpine div (`x-ref="stripchat"`) whose `x-init` injects `widgets/v4/Universal` via `$refs.stripchat.innerHTML`. Its opening tag contains `>` inside the quoted x-init expression (e.g. `clientWidth >= 1280`), so it is located with an indexOf scan + nesting-count removal instead of a regex.
+  - html-ads def rule now uses a tempered `(?!<\/script>)` dot so the ad marker must sit in the script directly after the `html-ads` div — it can no longer swallow intervening scripts (the GTM 129KB lesson, now provably bounded).
+  - Dropped the `hidden lg:block` / `lg:hidden` responsive-wrapper cascade: the `mx-auto` div carries the visible box size, so removing it already collapses the outer wrappers to zero height; skipping the cascade removes a latent div-imbalance risk if missav ever nests two ads in one wrapper.
+  - **Real video untouched by construction**: the player is a `<video>` element fed by HLS (surrit / growcdnssedge) and never an `<iframe>` with an ad src.
+- Verified against fresh raw HTML (fetched live, not from the old HAR): video page HMN-246 208,456 B -> 198,979 B, div tags 199/199 -> 190/190 balanced, 3 `<video>` tags and all 126 surrit references untouched, only the GTM `ns.html` iframe left (its request is rejected and it sits in `<noscript>`); homepage 328,647 B -> 319,817 B, div tags 458/458 -> 447/447 (same as the 2026-08-02 verification), 60 `<video>` tags untouched, every ad marker gone. Pass-through guards re-run: non-missav / empty / JSON / JS / missing content-type all pass through unchanged, an m3u8 body served with a text/html header stays byte-identical, and a mixed ad-iframes + `<video>` + htmlAds-executor page separates correctly.
+
 ## 2026-08-03 (diagnosis: "video won't play" is a geo-block, not a rule issue)
 
 - User reported playback still broken after the surrit hotfix. Diagnosed with a fresh play-video capture (`quantumult-x-2026-08-02-171954.har`) plus live tests from the user's mainland-China IP:
