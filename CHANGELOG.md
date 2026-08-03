@@ -1,5 +1,14 @@
 # Changelog
 
+## 2026-08-03 (diagnosis: "video won't play" is a geo-block, not a rule issue)
+
+- User reported playback still broken after the surrit hotfix. Diagnosed with a fresh play-video capture (`quantumult-x-2026-08-02-171954.har`) plus live tests from the user's mainland-China IP:
+  - surrit.com IS missav's current video HLS CDN (the play capture shows `/{uuid}/playlist.m3u8` / `source1280|source842/720p/video.m3u8` + `seek/_N.jpg` previews requested on play; the watch page references it ~200 times).
+  - surrit.com's Cloudflare **geo-blocks mainland-China IPs**: direct `curl` from the user's IP (120.196.48.195, Guangzhou CN Mobile) returns the same 403 block page, and the block page records the exact CN IP. Identical 403 appears in the pre-rule capture (124043), so this predates the rules.
+  - The rewrite script was re-verified against the real video watch page (fetched live): div tags 201/201 -> 195/195 balanced, 3 `<video>` tags and all 201 surrit references untouched. The rewrite is not the cause.
+  - Backup CDN `media-hls.growcdnssedge.com` is reachable from CN (serves 200/404, not geo-blocked) — videos served from it play fine.
+- Added `missav-routing.list` to route `surrit.com` through a foreign proxy node (the only way to watch surrit-served videos from CN). Follows the existing `91porn-routing.list` pattern; `proxy` field is editable.
+
 ## 2026-08-02 (fix: video playback restored)
 
 - **Hotfix**: `surrit.com` was wrongly classified as an ad. Its `/{uuid}/720p/video.m3u8` requests (referer = missav video detail page) are a real HLS video CDN, so the `url reject` rule and its MITM hostname broke playback for videos served from it. Removed surrit.com from `rewrite.snippet` entirely (rule + both hostname lines).

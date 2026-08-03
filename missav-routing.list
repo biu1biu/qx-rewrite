@@ -1,0 +1,5 @@
+# missav playback routing: surrit.com (missav's current video HLS CDN) is
+# geo-blocked by Cloudflare for mainland-China IPs (HTTP 403). Route it
+# through a foreign node so video can play.
+# Change `proxy` to your preferred Quantumult X policy/group name.
+host-suffix,surrit.com,proxy

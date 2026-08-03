@@ -15,6 +15,7 @@ Add the URL in Quantumult X under **订阅资源** as a rewrite snippet. The fil
 - `rewrite.snippet`: active subscription file.
 - `91porn.snippet`: standalone 91porn rules; subscribe this separately in Quantumult X.
 - `91porn-routing.list`: standalone playback-domain routing list; change the final `proxy` field to your policy/group name.
+- `missav-routing.list`: routes missav's video HLS CDN `surrit.com` through a proxy node — its Cloudflare geo-blocks mainland-China IPs (HTTP 403), so direct playback fails. Change the final `proxy` field to your policy/group name.
 - `scripts/91porn-cleanup.js`: removes confirmed ad containers from 91porn HTML responses; video elements and sources are left unchanged.
 - `18comic.snippet`: standalone 18comic.vip rules; subscribe this separately in Quantumult X.
 - `scripts/18comic-cleanup.js`: removes marked 18comic ad slots and AJAX ad fragments; comic image and video URLs are left unchanged.
@@ -42,6 +43,12 @@ The playback routing list is:
 
 ```text
 https://raw.githubusercontent.com/biu1biu/qx-rewrite/main/91porn-routing.list
+```
+
+The missav playback routing list (surrit.com via proxy node):
+
+```text
+https://raw.githubusercontent.com/biu1biu/qx-rewrite/main/missav-routing.list
 ```
 
 The standalone 18comic subscription URL is:
