@@ -1,5 +1,13 @@
 # Changelog
 
+## 2026-08-15 (91porn: safer ad-removal regexes, nav preserved)
+
+- User reported the 91porn cleanup script was removing the navigation menu bar. Could not reproduce on live `v.php` / `view_video.php` (script removed 0 bytes on the user's HAR capture which had no ads; live page had 6 `cont6` ad divs which were correctly removed while 19 nav `<li>` + 11 category links + headnav/top-menu all survived). Root cause was a latent risk in the regexes, now fixed:
+  - `cont6` rule: now requires the div to contain an ad marker (`ad_img`/`91selfie`/`rmhfrtnd`/`jads`/`juicyads`/`smartpop`). Without this, any element using `class="cont6"` for non-ad content would be removed.
+  - JuicyAds rule: now uses a tempered dot `(?!JuicyAds END|<\/body>)` so a missing END comment causes the rule to not match (ad left intact, network-layer reject still blocks it) instead of swallowing the entire page after the start comment.
+  - Empty-body early exit added.
+- Verified: live `v.php` 219/214→213/208 divs balanced, 19 nav `<li>` + 11 category links preserved, 6 `cont6` ad divs removed; `view_video.php` 8 nav `<li>` preserved; a non-ad `cont6` div is now correctly kept; JuicyAds without END comment no longer swallows the page.
+
 ## 2026-08-03 (block the popup video ad without touching the real video)
 
 - User: "第一次点击视频还有一个弹窗式的视频广告的那个要拦截,但是别误拦截真正的视频". Reproduced on a real video page (HMN-246) in the browser and confirmed the "popup video ad" is `creative.myavlive.com/widgets/Player?autoplay=all&campaignId=side_player` — an auto-playing video iframe, plus the `snaptrckr`/`rallytrck` tracking-pixel iframes, the `go.mayzaent.com/smartpop` popup, and the Alpine-injected `widgets/v4/Universal` under_player widget. All these domains were **already network-rejected** (`url reject` + MITM hostname), but the cleanup script only removed the `mayzaent` iframe ELEMENT — so a rejected ad iframe still occupied its 300x250/300x100 box. The fix is purely in `scripts/missav-cleanup.js`:
