@@ -1,0 +1,20 @@
+#!name=哔哩哔哩 开屏广告清理
+#!desc=拦截哔哩哔哩(app.bilibili.com)开屏广告接口，返回空数据，不影响正片/登录/其它 API；2233 品牌节日开屏默认保留
+#!author=biu1biu
+#!homepage=https://github.com/biu1biu/qx-rewrite
+#!raw-url=https://raw.githubusercontent.com/biu1biu/qx-rewrite/main/bilibili.snippet
+#!category=自用重写
+#!tag=去广告,bilibili,哔哩哔哩
+#!system=iOS,iPadOS
+
+# 开屏商业广告接口（2026-09-19 实抓 HAR 确认 is_ad:true，如 KFC/iCloud 投放）。
+# reject-dict 返回 200 + 空 JSON，App 取不到 data.list 即不展示开屏，避免 404 回退到缓存广告。
+^https?:\/\/app\.bilibili\.com\/x\/v2\/splash\/show(?:\?.*)?$ url reject-dict
+^https?:\/\/app\.bilibili\.com\/x\/v2\/splash\/list(?:\?.*)?$ url reject-dict
+^https?:\/\/app\.bilibili\.com\/x\/v2\/splash\/event\/list2(?:\?.*)?$ url reject-dict
+
+# brand/list = 2233 吉祥物 / 妇女节 / 中秋 等 B 站自家节日开屏（source:"brand"，非商业广告），默认保留。
+# 想连节日开屏也一并去掉、启动零开屏，取消下一行注释即可。
+#^https?:\/\/app\.bilibili\.com\/x\/v2\/splash\/brand\/list(?:\?.*)?$ url reject-dict
+
+hostname = app.bilibili.com

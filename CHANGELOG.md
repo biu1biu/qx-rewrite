@@ -1,5 +1,12 @@
 # Changelog
 
+## 2026-09-19 (bilibili app splash ad removal)
+
+- Analyzed `quantumult-x-2026-09-19-161511.har` (83 requests) and added standalone `bilibili.snippet` for the哔哩哔哩 iOS app splash screen ads.
+- Confirmed the ad delivery endpoints on `app.bilibili.com`: `/x/v2/splash/list` (273 KB, entries carry `is_ad:true` — e.g. KFC / iCloud brand buys), `/x/v2/splash/show` (impression payload, also `is_ad:true`), and `/x/v2/splash/event/list2`. All three are rewritten with `reject-dict` (200 + empty JSON) so the app finds no `data.list` and shows no splash, instead of a 404 that could fall back to a cached ad.
+- Deliberately left `/x/v2/splash/brand/list` (the 2233 mascot / 妇女节 / 中秋 / BW festival splashes, `source:"brand"` — bilibili's own art, not commercial ads) untouched; a commented-out rule is included for anyone who wants a zero-splash launch.
+- Verified offline against the HAR: the `list`/`show`/`event/list2` regex matches exactly those three splash paths and matches no other captured `app.bilibili.com` API (login, feed, playurl, dynamic, resource, etc.); `brand/list` is not matched by the active rules.
+
 ## 2026-08-15 (91porn: safer ad-removal regexes, nav preserved)
 
 - User reported the 91porn cleanup script was removing the navigation menu bar. Could not reproduce on live `v.php` / `view_video.php` (script removed 0 bytes on the user's HAR capture which had no ads; live page had 6 `cont6` ad divs which were correctly removed while 19 nav `<li>` + 11 category links + headnav/top-menu all survived). Root cause was a latent risk in the regexes, now fixed:
